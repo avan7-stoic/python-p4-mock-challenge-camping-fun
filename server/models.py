@@ -25,6 +25,8 @@ class Activity(db.Model, SerializerMixin):
     difficulty = db.Column(db.Integer)
 
     # Add relationship
+
+    #to do
     
     # Add serialization rules
     
