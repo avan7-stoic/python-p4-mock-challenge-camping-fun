@@ -21,12 +21,15 @@ class Activity(db.Model, SerializerMixin):
     __tablename__ = 'activities'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    difficulty = db.Column(db.Integer)
+    name = db.Column(db.String(80), nullable=False)
+    difficulty = db.Column(db.Integer(50), nullable=False)
+
+    signups = db.relationship ('Signup', back_populates='activity', cascade='all, delete-orphan')
+    camper = db.relationship ('Camper', secondary='signups', back_populates='activities')
 
     # Add relationship
 
-    #to do
+    serialize_rules = ('-signups.activity', '-campers.activities')
     
     # Add serialization rules
     

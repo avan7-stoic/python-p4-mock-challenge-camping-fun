@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
 migrate = Migrate(app, db)
-api = Api(app) # I don"t know I'm doing
+
 
 db.init_app(app)
 
