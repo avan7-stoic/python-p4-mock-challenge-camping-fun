@@ -41,14 +41,22 @@ class Camper(db.Model, SerializerMixin):
     __tablename__ = 'campers'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
-    age = db.Column(db.Integer)
+    name = db.Column(db.String(80), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+
+    signups = db.relationship('Signup', back_populates='camper', cascade='all, dlete-orphan')
+    activities = db.relationship('Activity', seconadary='signups', back_populates='campers')
 
     # Add relationship
     
     # Add serialization rules
+    serialize_rules = ('-signups.camper', '-activities.campers')
     
     # Add validation
+    def validate_age(self, key, value):
+        if value < 8 or value > 18:
+            raise ValueError('Age must be between 8 and 18.')
+        return value
     
     
     def __repr__(self):
